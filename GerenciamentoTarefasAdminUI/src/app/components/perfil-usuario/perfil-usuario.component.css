@@ -1,0 +1,26 @@
+.perfil-usuario-container table {
+  width: 100%; /* Faz a tabela ocupar 100% da largura disponível */
+  border: 1px solid #dee2e6;
+}
+
+.perfil-usuario-container th,
+.perfil-usuario-container td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: center;
+}
+
+.perfil-usuario-container thead th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn i {
+  margin-right: 5px;
+}

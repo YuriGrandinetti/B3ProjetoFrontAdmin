@@ -1,0 +1,26 @@
+.cadastro-usuario-admin-container table {
+  width: 100%; /* Faz a tabela ocupar 100% da largura disponível */
+  border: 1px solid #dee2e6;
+}
+
+.cadastro-usuario-admin-container th,
+.cadastro-usuario-admin-container td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: center;
+}
+
+.cadastro-usuario-admin-container thead th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn i {
+  margin-right: 5px;
+}

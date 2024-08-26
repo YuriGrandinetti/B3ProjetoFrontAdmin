@@ -1,0 +1,25 @@
+<div *ngIf="perfisUsuarios.length">
+  <ul>
+    <li *ngFor="let perfil of perfisUsuarios" (click)="getPerfilUsuarioById(perfil.idPerfilUsuario)">
+      {{ perfil.nome }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="perfilSelecionado">
+  <h3>{{ perfilSelecionado?.descricaoPerfil }}</h3>
+
+  <!-- Ajuste aqui para garantir que estamos passando um número válido -->
+  <button [disabled]="!perfilSelecionado?.idPerfilUsuario"
+          (click)="addPerfilToUsuario(perfilSelecionado?.idPerfilUsuario ?? 0)">
+    Adicionar ao Usuário
+  </button>
+
+  <button (click)="removePerfilFromUsuario(perfilSelecionado?.idPerfilUsuario ?? 0)">
+    Remover do Usuário
+  </button>
+</div>
+
+
+
+
