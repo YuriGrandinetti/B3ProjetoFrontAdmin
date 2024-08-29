@@ -7,7 +7,7 @@ import { PerfilUsuario } from '../models/perfilusuario.model'; // Crie um model 
   providedIn: 'root'
 })
 export class PerfilUsuarioService {
-  private apiUrl = 'http://localhost:5000/api/perfilusuario'; // Ajuste para a URL correta da sua API
+  private apiUrl = 'http://localhost:5076/api/perfilusuario'; // Ajuste para a URL correta da sua API
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class PerfilUsuarioService {
   getPerfisUsuarios(): Observable<PerfilUsuario[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-   // return this.http.get<PerfilUsuario[]>(`${this.apiUrl}/minhas-tarefas`, { headers });
+   // return this.http.get<PerfilUsuario[]>(`${this.apiUrl  }/minhas-tarefas`, { headers });
      return this.http.get<PerfilUsuario[]>(this.apiUrl, { headers });
   }
 
@@ -52,6 +52,13 @@ export class PerfilUsuarioService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete<void>(`${this.apiUrl}/${usuarioId}/perfis/${perfilUsuarioId}`, {headers});
+  }
+
+  // Método para atualizar um usuário
+  updatePerfilUsuario(id: number, perfilusuario: PerfilUsuario): Observable<void> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<void>(`${this.apiUrl}/${id}`, perfilusuario, {headers});
   }
 }
 
