@@ -1,25 +1,105 @@
-<div *ngIf="perfisUsuarios.length">
-  <ul>
-    <li *ngFor="let perfil of perfisUsuarios" (click)="getPerfilUsuarioById(perfil.idPerfilUsuario)">
-      {{ perfil.nome }}
-    </li>
-  </ul>
+<div class="container mt-4">
+  <!-- Título e botão de adicionar -->
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Gerenciamento de Perfis de Usuários</h2>
+    </div>
+    <div class="col-md-4 text-end">
+      <button class="btn btn-primary" (click)="abrirModalAdicionar()">Adicionar Perfil</button>
+    </div>
+  </div>
+
+  <!-- Tabela de Perfis de Usuários -->
+  <div class="table-responsive mt-3">
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th class="text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let perfil of perfisUsuarios">
+          <td>{{ perfil.idPerfilUsuario }}</td>
+          <td>{{ perfil.descricaoPerfil }}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-info me-2" (click)="abrirModalEditar(perfil)">Editar</button>
+            <button class="btn btn-sm btn-danger me-2" (click)="excluirPerfilUsuario(perfil.idPerfilUsuario)">Excluir</button>
+            <button class="btn btn-sm btn-success" (click)="adicionarPerfilAoUsuario(perfil.idPerfilUsuario)">Adicionar ao Usuário</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal Adicionar Perfil -->
+  <div class="modal fade" id="modalAdicionar" tabindex="-1" aria-labelledby="modalAdicionarLabel" aria-hidden="true" [class.show]="showModalAdicionar" [ngStyle]="{'display': showModalAdicionar ? 'block' : 'none'}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAdicionarLabel">Adicionar Novo Perfil</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="fecharModalAdicionar()"></button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm">
+            <div class="mb-3">
+              <label for="descricaoPerfil" class="form-label">Descrição do Perfil</label>
+              <input
+                type="text"
+                class="form-control"
+                id="descricaoPerfilEditar"
+                [(ngModel)]="descricaoPerfil"
+                name="descricaoPerfilEditar"
+                placeholder="Descrição do Perfil"
+                required
+              />
+              <div *ngIf="addForm.submitted && !novoPerfilUsuario.descricaoPerfil" class="text-danger">
+                Descrição do perfil é obrigatória.
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="fecharModalAdicionar()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="criarPerfilUsuario()" [disabled]="!addForm.form.valid">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar Perfil -->
+  <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" [class.show]="showModalEditar" [ngStyle]="{'display': showModalEditar ? 'block' : 'none'}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarLabel">Editar Perfil de Usuário</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="fecharModalEditar()"></button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="mb-3">
+              <label for="descricaoPerfilEditar" class="form-label">Descrição do Perfil</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  id="descricaoPerfilEditar"
+                  [(ngModel)]="descricaoPerfil"
+                  name="descricaoPerfilEditar"
+                  placeholder="Descrição do Perfil"
+                  required
+/>
+              <div *ngIf="editForm.submitted && !descricaoPerfil" class="text-danger">
+                Descrição do perfil é obrigatória.
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="fecharModalEditar()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="atualizarPerfilUsuario(perfilUsuarioSelecionado?.idPerfilUsuario!)" [disabled]="!editForm.form.valid">Salvar Alterações</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div *ngIf="perfilSelecionado">
-  <h3>{{ perfilSelecionado?.descricaoPerfil }}</h3>
-
-  <!-- Ajuste aqui para garantir que estamos passando um número válido -->
-  <button [disabled]="!perfilSelecionado?.idPerfilUsuario"
-          (click)="addPerfilToUsuario(perfilSelecionado?.idPerfilUsuario ?? 0)">
-    Adicionar ao Usuário
-  </button>
-
-  <button (click)="removePerfilFromUsuario(perfilSelecionado?.idPerfilUsuario ?? 0)">
-    Remover do Usuário
-  </button>
-</div>
-
-
-
-

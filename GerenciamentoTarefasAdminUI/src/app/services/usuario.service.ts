@@ -7,15 +7,15 @@ import { Usuario } from '../models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:5000/api/usuarios'; // Ajuste para a URL correta da sua API
-
+  private apiUrl = 'http://localhost:5076/api/usuarios'; // Ajuste para a URL correta da sua API
+  private apiUrlregistro = 'http://localhost:5076/api/Usuarios/registrar'
   constructor(private http: HttpClient) { }
 
   // Método para obter todos os usuários
   getUsuarios(): Observable<Usuario[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Usuario[]>(this.apiUrl, {headers});
+    return this.http.get<Usuario[]>(`${this.apiUrl}/getUsuarios`, { headers });
   }
 
   // Método para obter um usuário por ID
@@ -29,7 +29,7 @@ export class UsuarioService {
   createUsuario(usuario: Usuario): Observable<Usuario> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<Usuario>(this.apiUrl, usuario, {headers});
+    return this.http.post<Usuario>(this.apiUrlregistro, usuario, {headers});
   }
 
   // Método para atualizar um usuário

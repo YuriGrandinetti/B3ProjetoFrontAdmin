@@ -7,12 +7,16 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { AuthService } from './services/auth.service';
 import { TarefasService } from './services/tarefas.service';
+import { PerfilUsuarioService } from './services/perfil-usuario.service';
+import { UsuarioService } from './services/usuario.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(BrowserModule, FormsModule, HttpClientModule), // Substitua `provideHttpClient()` por `HttpClientModule`
     provideRouter(routes),
     AuthService,
-    TarefasService
+    TarefasService,
+    PerfilUsuarioService,
+    UsuarioService
   ]
 };
